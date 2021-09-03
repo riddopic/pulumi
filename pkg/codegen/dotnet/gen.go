@@ -1332,7 +1332,7 @@ func (mod *modContext) genFunction(w io.Writer, fun *schema.Function) error {
 }
 
 // Generates `${fn}Output(..)` version lifted to work on
-// `Input`-warpped arguments and producing an `Output`-wrapped result.
+// `Input`-wrapped arguments and producing an `Output`-wrapped result.
 func (mod *modContext) genFunctionOutputVersion(w io.Writer, fun *schema.Function) error {
 	if !fun.NeedsOutputVersion() {
 		return nil
