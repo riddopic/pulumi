@@ -15,9 +15,9 @@ namespace Pulumi.Example
         public static Task<ArgFunctionResult> InvokeAsync(ArgFunctionArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<ArgFunctionResult>("example::argFunction", args ?? new ArgFunctionArgs(), options.WithVersion());
 
-        public static Output<ArgFunctionResult> InvokeOutput(ArgFunctionOutputArgs? args = null, InvokeOptions? options = null)
+        public static Output<ArgFunctionResult> Invoke(ArgFunctionInputArgs? args = null, InvokeOptions? options = null)
         {
-            args = args ?? new ArgFunctionOutputArgs();
+            args = args ?? new ArgFunctionInputArgs();
             return Pulumi.Output.All(
                 args.Arg1.Box()
             ).Apply(a =>
@@ -40,11 +40,11 @@ namespace Pulumi.Example
         }
     }
 
-    public sealed class ArgFunctionOutputArgs
+    public sealed class ArgFunctionInputArgs
     {
         public Input<Pulumi.Example.Resource>? Arg1 { get; set; }
 
-        public ArgFunctionOutputArgs()
+        public ArgFunctionInputArgs()
         {
         }
     }

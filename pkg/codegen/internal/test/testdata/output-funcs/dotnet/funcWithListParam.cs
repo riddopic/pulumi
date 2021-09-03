@@ -21,9 +21,9 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// <summary>
         /// Check codegen of functions with a List parameter.
         /// </summary>
-        public static Output<FuncWithListParamResult> InvokeOutput(FuncWithListParamOutputArgs? args = null, InvokeOptions? options = null)
+        public static Output<FuncWithListParamResult> Invoke(FuncWithListParamInputArgs? args = null, InvokeOptions? options = null)
         {
-            args = args ?? new FuncWithListParamOutputArgs();
+            args = args ?? new FuncWithListParamInputArgs();
             return Pulumi.Output.All(
                 args.A.ToList().Box(),
                 args.B.Box()
@@ -56,7 +56,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         }
     }
 
-    public sealed class FuncWithListParamOutputArgs
+    public sealed class FuncWithListParamInputArgs
     {
         private InputList<string>? _a;
         public InputList<string> A
@@ -67,7 +67,7 @@ namespace Pulumi.MadeupPackage.Codegentest
 
         public Input<string>? B { get; set; }
 
-        public FuncWithListParamOutputArgs()
+        public FuncWithListParamInputArgs()
         {
         }
     }

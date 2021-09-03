@@ -23,7 +23,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// The response from the ListKeys operation.
         /// API Version: 2021-02-01.
         /// </summary>
-        public static Output<ListStorageAccountKeysResult> InvokeOutput(ListStorageAccountKeysOutputArgs args, InvokeOptions? options = null)
+        public static Output<ListStorageAccountKeysResult> Invoke(ListStorageAccountKeysInputArgs args, InvokeOptions? options = null)
         {
             return Pulumi.Output.All(
                 args.AccountName.Box(),
@@ -66,7 +66,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         }
     }
 
-    public sealed class ListStorageAccountKeysOutputArgs
+    public sealed class ListStorageAccountKeysInputArgs
     {
         /// <summary>
         /// The name of the storage account within the specified resource group. Storage account names must be between 3 and 24 characters in length and use numbers and lower-case letters only.
@@ -83,7 +83,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// </summary>
         public Input<string> ResourceGroupName { get; set; } = null!;
 
-        public ListStorageAccountKeysOutputArgs()
+        public ListStorageAccountKeysInputArgs()
         {
         }
     }

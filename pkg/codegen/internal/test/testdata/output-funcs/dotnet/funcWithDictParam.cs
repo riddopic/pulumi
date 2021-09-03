@@ -21,9 +21,9 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// <summary>
         /// Check codegen of functions with a Dict&lt;str,str&gt; parameter.
         /// </summary>
-        public static Output<FuncWithDictParamResult> InvokeOutput(FuncWithDictParamOutputArgs? args = null, InvokeOptions? options = null)
+        public static Output<FuncWithDictParamResult> Invoke(FuncWithDictParamInputArgs? args = null, InvokeOptions? options = null)
         {
-            args = args ?? new FuncWithDictParamOutputArgs();
+            args = args ?? new FuncWithDictParamInputArgs();
             return Pulumi.Output.All(
                 args.A.ToDictionary().Box(),
                 args.B.Box()
@@ -56,7 +56,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         }
     }
 
-    public sealed class FuncWithDictParamOutputArgs
+    public sealed class FuncWithDictParamInputArgs
     {
         private InputMap<string>? _a;
         public InputMap<string> A
@@ -67,7 +67,7 @@ namespace Pulumi.MadeupPackage.Codegentest
 
         public Input<string>? B { get; set; }
 
-        public FuncWithDictParamOutputArgs()
+        public FuncWithDictParamInputArgs()
         {
         }
     }

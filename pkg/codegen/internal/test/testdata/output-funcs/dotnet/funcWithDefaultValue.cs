@@ -21,7 +21,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// <summary>
         /// Check codegen of functions with default values.
         /// </summary>
-        public static Output<FuncWithDefaultValueResult> InvokeOutput(FuncWithDefaultValueOutputArgs args, InvokeOptions? options = null)
+        public static Output<FuncWithDefaultValueResult> Invoke(FuncWithDefaultValueInputArgs args, InvokeOptions? options = null)
         {
             return Pulumi.Output.All(
                 args.A.Box(),
@@ -51,13 +51,13 @@ namespace Pulumi.MadeupPackage.Codegentest
         }
     }
 
-    public sealed class FuncWithDefaultValueOutputArgs
+    public sealed class FuncWithDefaultValueInputArgs
     {
         public Input<string> A { get; set; } = null!;
 
         public Input<string>? B { get; set; }
 
-        public FuncWithDefaultValueOutputArgs()
+        public FuncWithDefaultValueInputArgs()
         {
             B = "b-default";
         }

@@ -1347,6 +1347,11 @@ func (mod *modContext) genFunction(w io.Writer, fun *schema.Function) error {
 	return nil
 }
 
+func functionOutputVersionArgsTypeName(fun *schema.Function) string {
+	className := tokenToFunctionName(fun.Token)
+	return fmt.Sprintf("%sInputArgs", className)
+}
+
 // Generates `${fn}Output(..)` version lifted to work on
 // `Input`-wrapped arguments and producing an `Output`-wrapped result.
 func (mod *modContext) genFunctionOutputVersion(w io.Writer, fun *schema.Function) error {
@@ -1361,20 +1366,22 @@ func (mod *modContext) genFunctionOutputVersion(w io.Writer, fun *schema.Functio
 		argsDefault, sigil = " = null", "?"
 	}
 
+	argsTypeName := functionOutputVersionArgsTypeName(fun)
+
 	var outputArgsParamDef string
-	outputArgsParamDef = fmt.Sprintf("%sOutputArgs%s args%s, ", className, sigil, argsDefault)
+	outputArgsParamDef = fmt.Sprintf("%s%s args%s, ", argsTypeName, sigil, argsDefault)
 
 	fmt.Fprintf(w, "\n")
 
 	// Emit the doc comment, if any.
 	printComment(w, fun.Comment, "        ")
 
-	fmt.Fprintf(w, "        public static Output<%sResult> InvokeOutput(%sInvokeOptions? options = null)\n",
+	fmt.Fprintf(w, "        public static Output<%sResult> Invoke(%sInvokeOptions? options = null)\n",
 		className, outputArgsParamDef)
 	fmt.Fprintf(w, "        {\n")
 
 	if allOptionalInputs(fun) {
-		fmt.Fprintf(w, "            args = args ?? new %sOutputArgs();\n", className)
+		fmt.Fprintf(w, "            args = args ?? new %s();\n", argsTypeName)
 	}
 
 	var args []string
@@ -1429,11 +1436,9 @@ func (mod *modContext) genFunctionOutputVersionTypes(w io.Writer, fun *schema.Fu
 		return nil
 	}
 
-	className := tokenToFunctionName(fun.Token)
-
 	applyArgs := &plainType{
 		mod:                   mod,
-		name:                  className + "OutputArgs",
+		name:                  functionOutputVersionArgsTypeName(fun),
 		propertyTypeQualifier: "Inputs",
 		properties:            fun.Inputs.InputShape.Properties,
 		args:                  true,
