@@ -1365,6 +1365,10 @@ func (mod *modContext) genFunctionOutputVersion(w io.Writer, fun *schema.Functio
 	outputArgsParamDef = fmt.Sprintf("%sOutputArgs%s args%s, ", className, sigil, argsDefault)
 
 	fmt.Fprintf(w, "\n")
+
+	// Emit the doc comment, if any.
+	printComment(w, fun.Comment, "        ")
+
 	fmt.Fprintf(w, "        public static Output<%sResult> InvokeOutput(%sInvokeOptions? options = null)\n",
 		className, outputArgsParamDef)
 	fmt.Fprintf(w, "        {\n")

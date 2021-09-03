@@ -19,6 +19,10 @@ namespace Pulumi.MadeupPackage.Codegentest
         public static Task<ListStorageAccountKeysResult> InvokeAsync(ListStorageAccountKeysArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<ListStorageAccountKeysResult>("azure-native:codegentest:listStorageAccountKeys", args ?? new ListStorageAccountKeysArgs(), options.WithVersion());
 
+        /// <summary>
+        /// The response from the ListKeys operation.
+        /// API Version: 2021-02-01.
+        /// </summary>
         public static Output<ListStorageAccountKeysResult> InvokeOutput(ListStorageAccountKeysOutputArgs args, InvokeOptions? options = null)
         {
             return Pulumi.Output.All(

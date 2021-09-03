@@ -18,6 +18,9 @@ namespace Pulumi.MadeupPackage.Codegentest
         public static Task<FuncWithAllOptionalInputsResult> InvokeAsync(FuncWithAllOptionalInputsArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<FuncWithAllOptionalInputsResult>("madeup-package:codegentest:funcWithAllOptionalInputs", args ?? new FuncWithAllOptionalInputsArgs(), options.WithVersion());
 
+        /// <summary>
+        /// Check codegen of functions with all optional inputs.
+        /// </summary>
         public static Output<FuncWithAllOptionalInputsResult> InvokeOutput(FuncWithAllOptionalInputsOutputArgs? args = null, InvokeOptions? options = null)
         {
             args = args ?? new FuncWithAllOptionalInputsOutputArgs();
