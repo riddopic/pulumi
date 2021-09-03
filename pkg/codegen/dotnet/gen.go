@@ -1227,6 +1227,9 @@ func (mod *modContext) genFunctionFileCode(f *schema.Function) (string, error) {
 	for _, i := range imports {
 		importStrings = append(importStrings, i.SortedValues()...)
 	}
+	if f.NeedsOutputVersion() {
+		importStrings = append(importStrings, "Pulumi.Utilities")
+	}
 	mod.genHeader(buffer, importStrings)
 	if err := mod.genFunction(buffer, f); err != nil {
 		return "", err
