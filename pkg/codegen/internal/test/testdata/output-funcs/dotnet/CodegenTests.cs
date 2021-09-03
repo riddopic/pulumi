@@ -26,7 +26,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         [Test]
         public async Task FuncWithAllOptionalInputsOutputWorks()
         {
-            Func<string,Func<FuncWithAllOptionalInputsInputArgs?>,Task> check = (
+            Func<string,Func<FuncWithAllOptionalInputsInvokeArgs?>,Task> check = (
                 (expected, args) => Assert
                 .Output(() => FuncWithAllOptionalInputs.Invoke(args()).Apply(x => x.R))
                 .ResolvesTo(expected)
@@ -34,19 +34,19 @@ namespace Pulumi.MadeupPackage.Codegentest
 
             await check("a=null b=null", () => null);
 
-            await check("a=null b=null", () => new FuncWithAllOptionalInputsInputArgs());
+            await check("a=null b=null", () => new FuncWithAllOptionalInputsInvokeArgs());
 
-            await check("a=my-a b=null", () => new FuncWithAllOptionalInputsInputArgs
+            await check("a=my-a b=null", () => new FuncWithAllOptionalInputsInvokeArgs
             {
                 A = Out("my-a"),
             });
 
-            await check("a=null b=my-b", () => new FuncWithAllOptionalInputsInputArgs
+            await check("a=null b=my-b", () => new FuncWithAllOptionalInputsInvokeArgs
             {
                 B = Out("my-b"),
             });
 
-            await check("a=my-a b=my-b", () => new FuncWithAllOptionalInputsInputArgs
+            await check("a=my-a b=my-b", () => new FuncWithAllOptionalInputsInvokeArgs
             {
                 A = Out("my-a"),
                 B = Out("my-b"),
@@ -56,23 +56,23 @@ namespace Pulumi.MadeupPackage.Codegentest
         [Test]
         public async Task FuncWithDefaultValueOutputWorks()
         {
-            Func<string,Func<FuncWithDefaultValueInputArgs>,Task> check = (
+            Func<string,Func<FuncWithDefaultValueInvokeArgs>,Task> check = (
                 (expected, args) => Assert
                 .Output(() => FuncWithDefaultValue.Invoke(args()).Apply(x => x.R))
                 .ResolvesTo(expected)
             );
 
             // Since A is required, not passing it is an exception.
-            Func<Task> act = () => check("", () => new FuncWithDefaultValueInputArgs());
+            Func<Task> act = () => check("", () => new FuncWithDefaultValueInvokeArgs());
             await act.Should().ThrowAsync<Exception>();
 
             // Check that default values from the schema work.
-            await check("a=my-a b=b-default", () => new FuncWithDefaultValueInputArgs()
+            await check("a=my-a b=b-default", () => new FuncWithDefaultValueInvokeArgs()
             {
                 A = Out("my-a")
             });
 
-            await check("a=my-a b=my-b", () => new FuncWithDefaultValueInputArgs()
+            await check("a=my-a b=my-b", () => new FuncWithDefaultValueInvokeArgs()
             {
                 A = Out("my-a"),
                 B = Out("my-b")
@@ -82,7 +82,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         [Test]
         public async Task FuncWithDictParamOutputWorks()
         {
-            Func<string,Func<FuncWithDictParamInputArgs>,Task> check = (
+            Func<string,Func<FuncWithDictParamInvokeArgs>,Task> check = (
                 (expected, args) => Assert
                 .Output(() => FuncWithDictParam.Invoke(args()).Apply(x => x.R))
                 .ResolvesTo(expected)
@@ -93,14 +93,14 @@ namespace Pulumi.MadeupPackage.Codegentest
             map.Add("K2", Out("my-k2"));
 
             // Omitted value defaults to empty dict and not null.
-            await check("a=[] b=null", () => new FuncWithDictParamInputArgs());
+            await check("a=[] b=null", () => new FuncWithDictParamInvokeArgs());
 
-            await check("a=[K1: my-k1, K2: my-k2] b=null", () => new FuncWithDictParamInputArgs()
+            await check("a=[K1: my-k1, K2: my-k2] b=null", () => new FuncWithDictParamInvokeArgs()
             {
                 A = map,
             });
 
-            await check("a=[K1: my-k1, K2: my-k2] b=my-b", () => new FuncWithDictParamInputArgs()
+            await check("a=[K1: my-k1, K2: my-k2] b=my-b", () => new FuncWithDictParamInvokeArgs()
             {
                 A = map,
                 B = Out("my-b"),
@@ -110,7 +110,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         [Test]
         public async Task FuncWithListParamOutputWorks()
         {
-            Func<string,Func<FuncWithListParamInputArgs>,Task> check = (
+            Func<string,Func<FuncWithListParamInvokeArgs>,Task> check = (
                 (expected, args) => Assert
                 .Output(() => FuncWithListParam.Invoke(args()).Apply(x => x.R))
                 .ResolvesTo(expected)
@@ -122,14 +122,14 @@ namespace Pulumi.MadeupPackage.Codegentest
             lst.Add("e3");
 
             // Similarly to dicts, omitted value defaults to empty list and not null.
-            await check("a=[] b=null", () => new FuncWithListParamInputArgs());
+            await check("a=[] b=null", () => new FuncWithListParamInvokeArgs());
 
-            await check("a=[e1, e2, e3] b=null", () => new FuncWithListParamInputArgs()
+            await check("a=[e1, e2, e3] b=null", () => new FuncWithListParamInvokeArgs()
             {
                 A = lst,
             });
 
-            await check("a=[e1, e2, e3] b=my-b", () => new FuncWithListParamInputArgs()
+            await check("a=[e1, e2, e3] b=my-b", () => new FuncWithListParamInvokeArgs()
             {
                 A = lst,
                 B = Out("my-b"),
@@ -139,7 +139,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         [Test]
         public async Task GetIntegrationRuntimeObjectMetadatumOuputWorks()
         {
-            Func<string,Func<GetIntegrationRuntimeObjectMetadatumInputArgs>,Task> check = (
+            Func<string,Func<GetIntegrationRuntimeObjectMetadatumInvokeArgs>,Task> check = (
                 (expected, args) => Assert
                 .Output(() => GetIntegrationRuntimeObjectMetadatum.Invoke(args()).Apply(x => {
                     var nextLink = x.NextLink ?? "null";
@@ -155,7 +155,7 @@ namespace Pulumi.MadeupPackage.Codegentest
 
             await check("nextLink=my-next-link value=[factoryName: my-fn, integrationRuntimeName: my-irn, " +
                         "metadataPath: my-mp, resourceGroupName: my-rgn]",
-                        () => new GetIntegrationRuntimeObjectMetadatumInputArgs()
+                        () => new GetIntegrationRuntimeObjectMetadatumInvokeArgs()
                         {
                             FactoryName = Out("my-fn"),
                             IntegrationRuntimeName = Out("my-irn"),
@@ -170,7 +170,7 @@ namespace Pulumi.MadeupPackage.Codegentest
             Func<StorageAccountKeyResponse, string> showSAKR = (r) =>
                 $"CreationTime={r.CreationTime} KeyName={r.KeyName} Permissions={r.Permissions} Value={r.Value}";
 
-            Func<string,Func<ListStorageAccountKeysInputArgs>,Task> check = (
+            Func<string,Func<ListStorageAccountKeysInvokeArgs>,Task> check = (
                 (expected, args) => Assert
                 .Output(() => ListStorageAccountKeys.Invoke(args()).Apply(x => {
                     return "[" + string.Join(", ", x.Keys.Select(k => showSAKR(k))) + "]";
@@ -179,7 +179,7 @@ namespace Pulumi.MadeupPackage.Codegentest
 
             await check("[CreationTime=my-creation-time KeyName=my-key-name Permissions=my-permissions" +
                         " Value=[accountName: my-an, expand: my-expand, resourceGroupName: my-rgn]]",
-                        () => new ListStorageAccountKeysInputArgs()
+                        () => new ListStorageAccountKeysInvokeArgs()
                         {
                             AccountName = Out("my-an"),
                             ResourceGroupName = Out("my-rgn"),

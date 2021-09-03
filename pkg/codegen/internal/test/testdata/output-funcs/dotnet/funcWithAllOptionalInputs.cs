@@ -21,9 +21,9 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// <summary>
         /// Check codegen of functions with all optional inputs.
         /// </summary>
-        public static Output<FuncWithAllOptionalInputsResult> Invoke(FuncWithAllOptionalInputsInputArgs? args = null, InvokeOptions? options = null)
+        public static Output<FuncWithAllOptionalInputsResult> Invoke(FuncWithAllOptionalInputsInvokeArgs? args = null, InvokeOptions? options = null)
         {
-            args = args ?? new FuncWithAllOptionalInputsInputArgs();
+            args = args ?? new FuncWithAllOptionalInputsInvokeArgs();
             return Pulumi.Output.All(
                 args.A.Box(),
                 args.B.Box()
@@ -57,7 +57,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         }
     }
 
-    public sealed class FuncWithAllOptionalInputsInputArgs
+    public sealed class FuncWithAllOptionalInputsInvokeArgs
     {
         /// <summary>
         /// Property A
@@ -69,7 +69,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// </summary>
         public Input<string>? B { get; set; }
 
-        public FuncWithAllOptionalInputsInputArgs()
+        public FuncWithAllOptionalInputsInvokeArgs()
         {
         }
     }

@@ -1349,7 +1349,7 @@ func (mod *modContext) genFunction(w io.Writer, fun *schema.Function) error {
 
 func functionOutputVersionArgsTypeName(fun *schema.Function) string {
 	className := tokenToFunctionName(fun.Token)
-	return fmt.Sprintf("%sInputArgs", className)
+	return fmt.Sprintf("%sInvokeArgs", className)
 }
 
 // Generates `${fn}Output(..)` version lifted to work on

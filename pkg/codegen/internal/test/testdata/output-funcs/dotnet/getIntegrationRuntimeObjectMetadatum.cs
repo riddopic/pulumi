@@ -23,7 +23,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// A list of SSIS object metadata.
         /// API Version: 2018-06-01.
         /// </summary>
-        public static Output<GetIntegrationRuntimeObjectMetadatumResult> Invoke(GetIntegrationRuntimeObjectMetadatumInputArgs args, InvokeOptions? options = null)
+        public static Output<GetIntegrationRuntimeObjectMetadatumResult> Invoke(GetIntegrationRuntimeObjectMetadatumInvokeArgs args, InvokeOptions? options = null)
         {
             return Pulumi.Output.All(
                 args.FactoryName.Box(),
@@ -74,7 +74,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         }
     }
 
-    public sealed class GetIntegrationRuntimeObjectMetadatumInputArgs
+    public sealed class GetIntegrationRuntimeObjectMetadatumInvokeArgs
     {
         /// <summary>
         /// The factory name.
@@ -96,7 +96,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// </summary>
         public Input<string> ResourceGroupName { get; set; } = null!;
 
-        public GetIntegrationRuntimeObjectMetadatumInputArgs()
+        public GetIntegrationRuntimeObjectMetadatumInvokeArgs()
         {
         }
     }
