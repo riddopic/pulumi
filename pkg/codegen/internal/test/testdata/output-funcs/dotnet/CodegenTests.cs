@@ -63,8 +63,6 @@ namespace Pulumi.MadeupPackage.Codegentest
             );
 
             // Since A is required, not passing it is an exception.
-            // Perhaps this should be rejected by the typechecker
-            // instead? Why is A optional statically?
             Func<Task> act = () => check("", () => new FuncWithDefaultValueOutputArgs());
             await act.Should().ThrowAsync<Exception>();
 
