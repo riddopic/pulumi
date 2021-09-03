@@ -55,7 +55,6 @@ namespace Pulumi.MadeupPackage.Codegentest
 
     public sealed class FuncWithListParamOutputArgs
     {
-        [Input("a")]
         private InputList<string>? _a;
         public InputList<string> A
         {
@@ -63,7 +62,6 @@ namespace Pulumi.MadeupPackage.Codegentest
             set => _a = value;
         }
 
-        [Input("b")]
         public Input<string>? B { get; set; }
 
         public FuncWithListParamOutputArgs()

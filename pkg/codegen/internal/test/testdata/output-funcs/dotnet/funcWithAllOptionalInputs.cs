@@ -59,13 +59,11 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// <summary>
         /// Property A
         /// </summary>
-        [Input("a")]
         public Input<string>? A { get; set; }
 
         /// <summary>
         /// Property B
         /// </summary>
-        [Input("b")]
         public Input<string>? B { get; set; }
 
         public FuncWithAllOptionalInputsOutputArgs()

@@ -42,7 +42,6 @@ namespace Pulumi.Example
 
     public sealed class ArgFunctionOutputArgs
     {
-        [Input("name")]
         public Input<Pulumi.Random.RandomPet>? Name { get; set; }
 
         public ArgFunctionOutputArgs()

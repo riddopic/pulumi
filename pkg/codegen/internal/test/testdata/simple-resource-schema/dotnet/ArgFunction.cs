@@ -42,7 +42,6 @@ namespace Pulumi.Example
 
     public sealed class ArgFunctionOutputArgs
     {
-        [Input("arg1")]
         public Input<Pulumi.Example.Resource>? Arg1 { get; set; }
 
         public ArgFunctionOutputArgs()

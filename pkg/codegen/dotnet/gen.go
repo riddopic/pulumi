@@ -487,12 +487,8 @@ type plainType struct {
 	state                 bool
 }
 
-func (pt *plainType) genInputProperty(w io.Writer, prop *schema.Property, indent string) {
+func (pt *plainType) genInputPropertyAttribute(w io.Writer, indent string, prop *schema.Property) {
 	wireName := prop.Name
-	propertyName := pt.mod.propertyName(prop)
-	propertyType := pt.mod.typeString(prop.Type, pt.propertyTypeQualifier, true, pt.state, false)
-
-	// First generate the input attribute.
 	attributeArgs := ""
 	if prop.IsRequired() {
 		attributeArgs = ", required: true"
@@ -509,6 +505,12 @@ func (pt *plainType) genInputProperty(w io.Writer, prop *schema.Property, indent
 			attributeArgs += ", json: true"
 		}
 	}
+	fmt.Fprintf(w, "%s[Input(\"%s\"%s)]\n", indent, wireName, attributeArgs)
+}
+
+func (pt *plainType) genInputProperty(w io.Writer, prop *schema.Property, indent string, generateInputAttribute bool) {
+	propertyName := pt.mod.propertyName(prop)
+	propertyType := pt.mod.typeString(prop.Type, pt.propertyTypeQualifier, true, pt.state, false)
 
 	indent = strings.Repeat(indent, 2)
 
@@ -530,7 +532,10 @@ func (pt *plainType) genInputProperty(w io.Writer, prop *schema.Property, indent
 		requireInitializers := !pt.args || !isInputType(prop.Type)
 		backingFieldType := pt.mod.typeString(codegen.RequiredType(prop), pt.propertyTypeQualifier, true, pt.state, requireInitializers)
 
-		fmt.Fprintf(w, "%s[Input(\"%s\"%s)]\n", indent, wireName, attributeArgs)
+		if generateInputAttribute {
+			pt.genInputPropertyAttribute(w, indent, prop)
+		}
+
 		fmt.Fprintf(w, "%sprivate %s? %s;\n", indent, backingFieldType, backingFieldName)
 
 		if prop.Comment != "" {
@@ -581,7 +586,11 @@ func (pt *plainType) genInputProperty(w io.Writer, prop *schema.Property, indent
 		}
 
 		printComment(w, prop.Comment, indent)
-		fmt.Fprintf(w, "%s[Input(\"%s\"%s)]\n", indent, wireName, attributeArgs)
+
+		if generateInputAttribute {
+			pt.genInputPropertyAttribute(w, indent, prop)
+		}
+
 		fmt.Fprintf(w, "%spublic %s %s { get; set; }%s\n", indent, propertyType, propertyName, initializer)
 	}
 }
@@ -590,6 +599,10 @@ func (pt *plainType) genInputProperty(w io.Writer, prop *schema.Property, indent
 var generatedTypes = codegen.Set{}
 
 func (pt *plainType) genInputType(w io.Writer, level int) error {
+	return pt.genInputTypeWithFlags(w, level, true /* generateInputAttributes */)
+}
+
+func (pt *plainType) genInputTypeWithFlags(w io.Writer, level int, generateInputAttributes bool) error {
 	// The way the legacy codegen for kubernetes is structured, inputs for a resource args type and resource args
 	// subtype could become a single class because of the name + namespace clash. We use a set of generated types
 	// to prevent generating classes with equal full names in multiple files. The check should be removed if we
@@ -624,7 +637,7 @@ func (pt *plainType) genInputType(w io.Writer, level int) error {
 
 	// Declare each input property.
 	for _, p := range pt.properties {
-		pt.genInputProperty(w, p, indent)
+		pt.genInputProperty(w, p, indent, generateInputAttributes)
 		fmt.Fprintf(w, "\n")
 	}
 
@@ -1422,7 +1435,7 @@ func (mod *modContext) genFunctionOutputVersionTypes(w io.Writer, fun *schema.Fu
 		args:                  true,
 	}
 
-	if err := applyArgs.genInputType(w, 1); err != nil {
+	if err := applyArgs.genInputTypeWithFlags(w, 1, false /* generateInputAttributes */); err != nil {
 		return err
 	}
 	return nil

@@ -67,19 +67,16 @@ namespace Pulumi.MadeupPackage.Codegentest
         /// <summary>
         /// The name of the storage account within the specified resource group. Storage account names must be between 3 and 24 characters in length and use numbers and lower-case letters only.
         /// </summary>
-        [Input("accountName", required: true)]
         public Input<string> AccountName { get; set; } = null!;
 
         /// <summary>
         /// Specifies type of the key to be listed. Possible value is kerb.
         /// </summary>
-        [Input("expand")]
         public Input<string>? Expand { get; set; }
 
         /// <summary>
         /// The name of the resource group within the user's subscription. The name is case insensitive.
         /// </summary>
-        [Input("resourceGroupName", required: true)]
         public Input<string> ResourceGroupName { get; set; } = null!;
 
         public ListStorageAccountKeysOutputArgs()

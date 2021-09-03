@@ -55,7 +55,6 @@ namespace Pulumi.MadeupPackage.Codegentest
 
     public sealed class FuncWithDictParamOutputArgs
     {
-        [Input("a")]
         private InputMap<string>? _a;
         public InputMap<string> A
         {
@@ -63,7 +62,6 @@ namespace Pulumi.MadeupPackage.Codegentest
             set => _a = value;
         }
 
-        [Input("b")]
         public Input<string>? B { get; set; }
 
         public FuncWithDictParamOutputArgs()
