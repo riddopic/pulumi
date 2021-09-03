@@ -1383,7 +1383,6 @@ func (mod *modContext) genFunctionOutputVersion(w io.Writer, fun *schema.Functio
 	indent := "        "
 	indent2 := indent + "    "
 	indent3 := indent2 + "    "
-	indent4 := indent3 + "    "
 
 	var unpackStatements []string
 	for i, p := range fun.Inputs.Properties {
@@ -1395,12 +1394,12 @@ func (mod *modContext) genFunctionOutputVersion(w io.Writer, fun *schema.Functio
 	fmt.Fprintf(w, "%sreturn Pulumi.Output.All(\n", indent2)
 	fmt.Fprintf(w, "%s%s\n", indent3, strings.Join(args, ",\n"+indent3))
 
-	fmt.Fprintf(w, "%s).Apply(a => {\n", indent2)
-	fmt.Fprintf(w, "%svar args = new %sArgs();\n", indent4, className)
+	fmt.Fprintf(w, "%s).Apply(a =>\n%s{\n", indent2, indent2)
+	fmt.Fprintf(w, "%svar args = new %sArgs();\n", indent3, className)
 	for _, s := range unpackStatements {
-		fmt.Fprintf(w, "%s%s\n", indent4, s)
+		fmt.Fprintf(w, "%s%s\n", indent3, s)
 	}
-	fmt.Fprintf(w, "%sreturn InvokeAsync(args, options);\n", indent4)
+	fmt.Fprintf(w, "%sreturn InvokeAsync(args, options);\n", indent3)
 	fmt.Fprintf(w, "%s});\n", indent2)
 	fmt.Fprintf(w, "%s}\n", indent)
 

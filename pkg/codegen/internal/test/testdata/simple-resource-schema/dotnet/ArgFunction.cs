@@ -20,10 +20,11 @@ namespace Pulumi.Example
             args = args ?? new ArgFunctionOutputArgs();
             return Pulumi.Output.All(
                 args.Arg1.Box()
-            ).Apply(a => {
-                    var args = new ArgFunctionArgs();
-                    a[0].Set(args, nameof(args.Arg1));
-                    return InvokeAsync(args, options);
+            ).Apply(a =>
+            {
+                var args = new ArgFunctionArgs();
+                a[0].Set(args, nameof(args.Arg1));
+                return InvokeAsync(args, options);
             });
         }
     }

@@ -24,11 +24,12 @@ namespace Pulumi.MadeupPackage.Codegentest
             return Pulumi.Output.All(
                 args.A.ToDictionary().Box(),
                 args.B.Box()
-            ).Apply(a => {
-                    var args = new FuncWithDictParamArgs();
-                    a[0].Set(args, nameof(args.A));
-                    a[1].Set(args, nameof(args.B));
-                    return InvokeAsync(args, options);
+            ).Apply(a =>
+            {
+                var args = new FuncWithDictParamArgs();
+                a[0].Set(args, nameof(args.A));
+                a[1].Set(args, nameof(args.B));
+                return InvokeAsync(args, options);
             });
         }
     }

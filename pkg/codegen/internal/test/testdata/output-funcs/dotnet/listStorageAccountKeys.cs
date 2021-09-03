@@ -25,12 +25,13 @@ namespace Pulumi.MadeupPackage.Codegentest
                 args.AccountName.Box(),
                 args.Expand.Box(),
                 args.ResourceGroupName.Box()
-            ).Apply(a => {
-                    var args = new ListStorageAccountKeysArgs();
-                    a[0].Set(args, nameof(args.AccountName));
-                    a[1].Set(args, nameof(args.Expand));
-                    a[2].Set(args, nameof(args.ResourceGroupName));
-                    return InvokeAsync(args, options);
+            ).Apply(a =>
+            {
+                var args = new ListStorageAccountKeysArgs();
+                a[0].Set(args, nameof(args.AccountName));
+                a[1].Set(args, nameof(args.Expand));
+                a[2].Set(args, nameof(args.ResourceGroupName));
+                return InvokeAsync(args, options);
             });
         }
     }

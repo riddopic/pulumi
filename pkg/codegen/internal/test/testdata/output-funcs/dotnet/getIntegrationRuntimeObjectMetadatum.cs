@@ -26,13 +26,14 @@ namespace Pulumi.MadeupPackage.Codegentest
                 args.IntegrationRuntimeName.Box(),
                 args.MetadataPath.Box(),
                 args.ResourceGroupName.Box()
-            ).Apply(a => {
-                    var args = new GetIntegrationRuntimeObjectMetadatumArgs();
-                    a[0].Set(args, nameof(args.FactoryName));
-                    a[1].Set(args, nameof(args.IntegrationRuntimeName));
-                    a[2].Set(args, nameof(args.MetadataPath));
-                    a[3].Set(args, nameof(args.ResourceGroupName));
-                    return InvokeAsync(args, options);
+            ).Apply(a =>
+            {
+                var args = new GetIntegrationRuntimeObjectMetadatumArgs();
+                a[0].Set(args, nameof(args.FactoryName));
+                a[1].Set(args, nameof(args.IntegrationRuntimeName));
+                a[2].Set(args, nameof(args.MetadataPath));
+                a[3].Set(args, nameof(args.ResourceGroupName));
+                return InvokeAsync(args, options);
             });
         }
     }
