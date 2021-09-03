@@ -17,7 +17,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         public static Task<FuncWithDictParamResult> InvokeAsync(FuncWithDictParamArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<FuncWithDictParamResult>("madeup-package:codegentest:funcWithDictParam", args ?? new FuncWithDictParamArgs(), options.WithVersion());
 
-        public static Output<FuncWithDictParamResult> Invoke(FuncWithDictParamOutputArgs? args = null, InvokeOptions? options = null)
+        public static Output<FuncWithDictParamResult> InvokeOutput(FuncWithDictParamOutputArgs? args = null, InvokeOptions? options = null)
         {
             args = args ?? new FuncWithDictParamOutputArgs();
             return Pulumi.Output.All(

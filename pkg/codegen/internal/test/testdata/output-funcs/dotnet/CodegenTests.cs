@@ -28,7 +28,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         {
             Func<string,Func<FuncWithAllOptionalInputsOutputArgs?>,Task> check = (
                 (expected, args) => Assert
-                .Output(() => FuncWithAllOptionalInputs.Invoke(args()).Apply(x => x.R))
+                .Output(() => FuncWithAllOptionalInputs.InvokeOutput(args()).Apply(x => x.R))
                 .ResolvesTo(expected)
             );
 
@@ -58,7 +58,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         {
             Func<string,Func<FuncWithDefaultValueOutputArgs>,Task> check = (
                 (expected, args) => Assert
-                .Output(() => FuncWithDefaultValue.Invoke(args()).Apply(x => x.R))
+                .Output(() => FuncWithDefaultValue.InvokeOutput(args()).Apply(x => x.R))
                 .ResolvesTo(expected)
             );
 
@@ -86,7 +86,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         {
             Func<string,Func<FuncWithDictParamOutputArgs>,Task> check = (
                 (expected, args) => Assert
-                .Output(() => FuncWithDictParam.Invoke(args()).Apply(x => x.R))
+                .Output(() => FuncWithDictParam.InvokeOutput(args()).Apply(x => x.R))
                 .ResolvesTo(expected)
             );
 
@@ -114,7 +114,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         {
             Func<string,Func<FuncWithListParamOutputArgs>,Task> check = (
                 (expected, args) => Assert
-                .Output(() => FuncWithListParam.Invoke(args()).Apply(x => x.R))
+                .Output(() => FuncWithListParam.InvokeOutput(args()).Apply(x => x.R))
                 .ResolvesTo(expected)
             );
 
@@ -143,7 +143,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         {
             Func<string,Func<GetIntegrationRuntimeObjectMetadatumOutputArgs>,Task> check = (
                 (expected, args) => Assert
-                .Output(() => GetIntegrationRuntimeObjectMetadatum.Invoke(args()).Apply(x => {
+                .Output(() => GetIntegrationRuntimeObjectMetadatum.InvokeOutput(args()).Apply(x => {
                     var nextLink = x.NextLink ?? "null";
                     var valueRepr = "null";
                     if (x.Value != null)
@@ -174,7 +174,7 @@ namespace Pulumi.MadeupPackage.Codegentest
 
             Func<string,Func<ListStorageAccountKeysOutputArgs>,Task> check = (
                 (expected, args) => Assert
-                .Output(() => ListStorageAccountKeys.Invoke(args()).Apply(x => {
+                .Output(() => ListStorageAccountKeys.InvokeOutput(args()).Apply(x => {
                     return "[" + string.Join(", ", x.Keys.Select(k => showSAKR(k))) + "]";
                 })).ResolvesTo(expected)
             );

@@ -17,7 +17,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         public static Task<FuncWithListParamResult> InvokeAsync(FuncWithListParamArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<FuncWithListParamResult>("madeup-package:codegentest:funcWithListParam", args ?? new FuncWithListParamArgs(), options.WithVersion());
 
-        public static Output<FuncWithListParamResult> Invoke(FuncWithListParamOutputArgs? args = null, InvokeOptions? options = null)
+        public static Output<FuncWithListParamResult> InvokeOutput(FuncWithListParamOutputArgs? args = null, InvokeOptions? options = null)
         {
             args = args ?? new FuncWithListParamOutputArgs();
             return Pulumi.Output.All(

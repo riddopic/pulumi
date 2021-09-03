@@ -1349,7 +1349,7 @@ func (mod *modContext) genFunctionOutputVersion(w io.Writer, fun *schema.Functio
 	outputArgsParamDef = fmt.Sprintf("%sOutputArgs%s args%s, ", className, sigil, argsDefault)
 
 	fmt.Fprintf(w, "\n")
-	fmt.Fprintf(w, "        public static Output<%sResult> Invoke(%sInvokeOptions? options = null)\n",
+	fmt.Fprintf(w, "        public static Output<%sResult> InvokeOutput(%sInvokeOptions? options = null)\n",
 		className, outputArgsParamDef)
 	fmt.Fprintf(w, "        {\n")
 

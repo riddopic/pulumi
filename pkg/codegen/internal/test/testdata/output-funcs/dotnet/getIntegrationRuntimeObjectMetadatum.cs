@@ -18,7 +18,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         public static Task<GetIntegrationRuntimeObjectMetadatumResult> InvokeAsync(GetIntegrationRuntimeObjectMetadatumArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetIntegrationRuntimeObjectMetadatumResult>("azure-native:codegentest:getIntegrationRuntimeObjectMetadatum", args ?? new GetIntegrationRuntimeObjectMetadatumArgs(), options.WithVersion());
 
-        public static Output<GetIntegrationRuntimeObjectMetadatumResult> Invoke(GetIntegrationRuntimeObjectMetadatumOutputArgs args, InvokeOptions? options = null)
+        public static Output<GetIntegrationRuntimeObjectMetadatumResult> InvokeOutput(GetIntegrationRuntimeObjectMetadatumOutputArgs args, InvokeOptions? options = null)
         {
             return Pulumi.Output.All(
                 args.FactoryName.Box(),

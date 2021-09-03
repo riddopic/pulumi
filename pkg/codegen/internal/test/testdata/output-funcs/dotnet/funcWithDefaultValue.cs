@@ -17,7 +17,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         public static Task<FuncWithDefaultValueResult> InvokeAsync(FuncWithDefaultValueArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<FuncWithDefaultValueResult>("madeup-package:codegentest:funcWithDefaultValue", args ?? new FuncWithDefaultValueArgs(), options.WithVersion());
 
-        public static Output<FuncWithDefaultValueResult> Invoke(FuncWithDefaultValueOutputArgs args, InvokeOptions? options = null)
+        public static Output<FuncWithDefaultValueResult> InvokeOutput(FuncWithDefaultValueOutputArgs args, InvokeOptions? options = null)
         {
             return Pulumi.Output.All(
                 args.A.Box(),

@@ -14,7 +14,7 @@ namespace Pulumi.Example
         public static Task<ArgFunctionResult> InvokeAsync(ArgFunctionArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<ArgFunctionResult>("example::argFunction", args ?? new ArgFunctionArgs(), options.WithVersion());
 
-        public static Output<ArgFunctionResult> Invoke(ArgFunctionOutputArgs? args = null, InvokeOptions? options = null)
+        public static Output<ArgFunctionResult> InvokeOutput(ArgFunctionOutputArgs? args = null, InvokeOptions? options = null)
         {
             args = args ?? new ArgFunctionOutputArgs();
             return Pulumi.Output.All(
