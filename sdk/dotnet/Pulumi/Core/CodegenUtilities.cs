@@ -1,7 +1,6 @@
 // Copyright 2016-2021, Pulumi Corporation
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Pulumi.Utilities
 {
@@ -17,20 +16,17 @@ namespace Pulumi.Utilities
         public static Input<List<T>> ToList<T>(this InputList<T> inputList)
             => inputList.Apply(v => new List<T>(v));
 
-        public class Boxed
+        public sealed class Boxed
         {
-            [AllowNull]
-            public object Value { get; }
+            public object? Value { get; private set; }
 
-            private Boxed([AllowNull] object o)
+            private Boxed(object? o)
             {
                 Value = o;
             }
 
-            public static Boxed Create([AllowNull] object o)
-            {
-                return new Boxed(o);
-            }
+            public static Boxed Create(object? o)
+                => new Boxed(o);
 
             public void Set(object target, string propertyName)
             {
@@ -46,16 +42,9 @@ namespace Pulumi.Utilities
             }
         }
 
-        public static Output<Boxed> Box<T>([AllowNull] this Input<T> input)
-        {
-            if (input == null)
-            {
-                return Output.Create(Boxed.Create(null));
-            }
-            else
-            {
-                return input.Apply(v => Boxed.Create(v));
-            }
-        }
+        public static Output<Boxed> Box<T>(this Input<T>? input)
+            => input == null
+                ? Output.Create(Boxed.Create(null))
+                : input.Apply(v => Boxed.Create(v));
     }
 }
