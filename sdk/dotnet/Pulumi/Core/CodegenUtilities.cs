@@ -10,7 +10,7 @@ namespace Pulumi.Utilities
     /// </summary>
     public static class CodegenUtilities
     {
-        public static Input<Dictionary<string,T>> ToDict<T>(this InputMap<T> inputMap)
+        public static Input<Dictionary<string,T>> ToDictionary<T>(this InputMap<T> inputMap)
             => inputMap.Apply(v => new Dictionary<string,T>(v));
 
         public static Input<List<T>> ToList<T>(this InputList<T> inputList)
@@ -20,13 +20,13 @@ namespace Pulumi.Utilities
         {
             public object? Value { get; private set; }
 
-            private Boxed(object? o)
+            private Boxed(object? value)
             {
-                Value = o;
+                Value = value;
             }
 
-            public static Boxed Create(object? o)
-                => new Boxed(o);
+            public static Boxed Create(object? value)
+                => new Boxed(value);
 
             public void Set(object target, string propertyName)
             {

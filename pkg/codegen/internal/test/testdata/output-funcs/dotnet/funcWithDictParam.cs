@@ -22,7 +22,7 @@ namespace Pulumi.MadeupPackage.Codegentest
         {
             args = args ?? new FuncWithDictParamOutputArgs();
             return Pulumi.Output.All(
-                args.A.ToDict().Box(),
+                args.A.ToDictionary().Box(),
                 args.B.Box()
             ).Apply(a => {
                     var args = new FuncWithDictParamArgs();
