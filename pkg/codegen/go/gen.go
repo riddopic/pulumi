@@ -1994,6 +1994,28 @@ func (pkg *pkgContext) tokenToEnum(tok string) string {
 
 func (pkg *pkgContext) genTypeRegistrations(w io.Writer, objTypes []*schema.ObjectType, types ...string) {
 	fmt.Fprintf(w, "func init() {\n")
+
+	// Input types.
+	for _, obj := range objTypes {
+		name, details := pkg.tokenToType(obj.Token), pkg.detailsForType(obj)
+		fmt.Fprintf(w, "\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sInput)(nil)).Elem(), %[1]s{})\n", name)
+		if details.ptrElement {
+			fmt.Fprintf(w, "\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sPtrInput)(nil)).Elem(), %[1]s{})\n", name)
+		}
+		if details.arrayElement {
+			fmt.Fprintf(w,
+				"\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sArrayInput)(nil)).Elem(), %[1]sArray{})\n", name)
+		}
+		if details.mapElement {
+			fmt.Fprintf(w,
+				"\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sMapInput)(nil)).Elem(), %[1]sMap{})\n", name)
+		}
+	}
+	for _, t := range types {
+		fmt.Fprintf(w, "\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sInput)(nil)).Elem(), %[1]s{})\n", t)
+	}
+
+	// Output types.
 	for _, obj := range objTypes {
 		name, details := pkg.tokenToType(obj.Token), pkg.detailsForType(obj)
 		fmt.Fprintf(w, "\tpulumi.RegisterOutputType(%sOutput{})\n", name)
@@ -2007,10 +2029,10 @@ func (pkg *pkgContext) genTypeRegistrations(w io.Writer, objTypes []*schema.Obje
 			fmt.Fprintf(w, "\tpulumi.RegisterOutputType(%sMapOutput{})\n", name)
 		}
 	}
-
 	for _, t := range types {
 		fmt.Fprintf(w, "\tpulumi.RegisterOutputType(%sOutput{})\n", t)
 	}
+
 	fmt.Fprintf(w, "}\n")
 }
 
@@ -2878,9 +2900,25 @@ func GeneratePackage(tool string, pkg *schema.Package) (map[string][]byte, error
 			fmt.Fprintf(buffer, "func init() {\n")
 			for _, e := range pkg.enums {
 				name := pkg.tokenToEnum(e.Token)
+				details := pkg.detailsForType(e)
+				// Input types.
+				fmt.Fprintf(buffer,
+					"\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sInput)(nil)).Elem(), %[1]s{})\n", name)
+				fmt.Fprintf(buffer,
+					"\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sPtrInput)(nil)).Elem(), %[1]sPtr{})\n", name)
+				if details.arrayElement {
+					fmt.Fprintf(buffer,
+						"\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sArrayInput)(nil)).Elem(), %[1]sArray{})\n",
+						name)
+				}
+				if details.mapElement {
+					fmt.Fprintf(buffer,
+						"\tpulumi.RegisterInputType(reflect.TypeOf((*%[1]sMapInput)(nil)).Elem(), %[1]sMap{})\n", name)
+				}
+
+				// Output types.
 				fmt.Fprintf(buffer, "\tpulumi.RegisterOutputType(%sOutput{})\n", name)
 				fmt.Fprintf(buffer, "\tpulumi.RegisterOutputType(%sPtrOutput{})\n", name)
-				details := pkg.detailsForType(e)
 				if details.arrayElement {
 					fmt.Fprintf(buffer, "\tpulumi.RegisterOutputType(%sArrayOutput{})\n", name)
 				}
