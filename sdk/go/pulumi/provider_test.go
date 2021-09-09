@@ -490,8 +490,14 @@ func TestConstructResult(t *testing.T) {
 	resolvedProps, _, _, err := marshalInputs(state)
 	assert.NoError(t, err)
 
-	assert.Equal(t, resource.NewPropertyMapFromMap(map[string]interface{}{
-		"foo":       "hi",
-		"someValue": "something",
-	}), resolvedProps)
+	assert.Equal(t, resource.PropertyMap{
+		"foo": resource.NewOutputProperty(resource.Output{
+			Element: resource.NewStringProperty("hi"),
+			Known:   true,
+		}),
+		"someValue": resource.NewOutputProperty(resource.Output{
+			Element: resource.NewStringProperty("something"),
+			Known:   true,
+		}),
+	}, resolvedProps)
 }
