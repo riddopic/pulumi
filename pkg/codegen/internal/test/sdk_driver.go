@@ -30,7 +30,7 @@ const (
 
 var sdkTests = []sdkTest{
 	{
-		Directory:   "input-collision",
+		Directory:   "naming-collisions",
 		Description: "Schema with types that could potentially produce collisions (go).",
 	},
 	{
