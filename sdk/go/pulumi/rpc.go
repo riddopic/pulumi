@@ -215,12 +215,17 @@ const cannotAwaitFmt = "cannot marshal Output value of type %T; please use Apply
 
 // marshalInput marshals an input value, returning its raw serializable value along with any dependencies.
 func marshalInput(v interface{}, destType reflect.Type, await bool) (resource.PropertyValue, []Resource, error) {
+	return marshalInputImpl(v, destType, await, true /*checkInput*/)
+}
+
+func marshalInputImpl(v interface{}, destType reflect.Type, await, checkInput bool) (resource.PropertyValue,
+	[]Resource, error) {
 	var deps []Resource
 	for {
 		valueType := reflect.TypeOf(v)
 
 		// If this is an Input, make sure it is of the proper type and await it if it is an output/
-		if input, ok := v.(Input); ok {
+		if input, ok := v.(Input); ok && checkInput {
 			if inputType := reflect.ValueOf(input); inputType.Kind() == reflect.Ptr && inputType.IsNil() {
 				// input type is a ptr type with a nil backing value
 				return resource.PropertyValue{}, nil, nil
@@ -272,7 +277,7 @@ func marshalInput(v interface{}, destType reflect.Type, await bool) (resource.Pr
 					Dependencies: dependencies,
 				}
 				if known {
-					out.Element, _, err = marshalInput(ov, destType, await)
+					out.Element, _, err = marshalInputImpl(ov, destType, await, false /*checkInput*/)
 					if err != nil {
 						return resource.PropertyValue{}, nil, err
 					}
