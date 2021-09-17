@@ -30,9 +30,8 @@ const (
 
 var sdkTests = []sdkTest{
 	{
-		Directory:        "naming-collisions",
-		Description:      "Schema with types that could potentially produce collisions",
-		SkipCompileCheck: codegen.NewStringSet(dotnet, nodejs),
+		Directory:   "naming-collisions",
+		Description: "Schema with types that could potentially produce collisions",
 	},
 	{
 		Directory:   "dash-named-schema",
