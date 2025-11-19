@@ -1,6 +1,6 @@
 module github.com/pulumi/pulumi/pkg/v3
 
-go 1.17
+go 1.24.0
 
 replace (
 	github.com/Sirupsen/logrus => github.com/sirupsen/logrus v1.5.0
@@ -53,10 +53,10 @@ require (
 	github.com/zclconf/go-cty v1.3.1
 	gocloud.dev v0.23.0
 	gocloud.dev/secrets/hashivault v0.23.0
-	golang.org/x/crypto v0.0.0-20210506145944-38f3c27a63bf
-	golang.org/x/net v0.0.0-20210505214959-0714010a04ed
+	golang.org/x/crypto v0.45.0
+	golang.org/x/net v0.47.0
 	golang.org/x/oauth2 v0.0.0-20210427180440-81ed05c6b58c
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	golang.org/x/sync v0.18.0
 	google.golang.org/api v0.46.0
 	google.golang.org/genproto v0.0.0-20210506142907-4a47615972c2
 	google.golang.org/grpc v1.37.0
@@ -96,7 +96,7 @@ require (
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/snappy v0.0.3 // indirect
-	github.com/google/go-cmp v0.5.5 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/google/wire v0.5.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.0.5 // indirect
@@ -146,12 +146,12 @@ require (
 	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
-	golang.org/x/mod v0.4.2 // indirect
-	golang.org/x/sys v0.0.0-20210817190340-bfb29a6856f2 // indirect
-	golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 // indirect
-	golang.org/x/text v0.3.6 // indirect
+	golang.org/x/mod v0.29.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/term v0.37.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
-	golang.org/x/tools v0.1.0 // indirect
+	golang.org/x/tools v0.38.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
@@ -164,4 +164,6 @@ require (
 require (
 	github.com/hashicorp/go-version v1.4.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
+	golang.org/x/telemetry v0.0.0-20251008203120-078029d740a8 // indirect
+	golang.org/x/tools/godoc v0.1.0-deprecated // indirect
 )
